@@ -1,0 +1,25 @@
+##     spsmooth
+##     An extension for mgcv and gam.
+##     Copyright (C) 2012 Wesley Burr
+##
+##     This file is part of the spsmooth package for R.
+##
+##     The spsmooth package is free software: you can redistribute it 
+##     and/or modify it under the terms of the GNU General Public License as 
+##     published by the Free Software Foundation, either version 2 of the 
+##     License, or any later version.
+##
+##     The spsmooth package is distributed in the hope that it will be 
+##     useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+##     of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##     GNU General Public License for more details.
+##
+##     You should have received a copy of the GNU General Public License
+##     along with spsmooth.  If not, see <http://www.gnu.org/licenses/>.
+##
+##     If you wish to report bugs please contact the author. 
+##     Wesley Burr <wburr@mast.queensu.ca>
+##     239 Jeffery Hall, Queen's University, Kingston Ontario
+##     Canada, K7L 3N6
+
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) 
