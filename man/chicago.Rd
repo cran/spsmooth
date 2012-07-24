@@ -46,13 +46,13 @@
 }
 \examples{
     # This provides the code that generated this set originally
-    library("NMMAPSlite")
-    initDB()   # ** this creates a directory for a data archive
-    chic <- readCity("chic", collapseAge=TRUE)
-    chic <- chic[, c("date", "death", "time", "tmpd", "dptp", "dow", "pm10tmean")]
-    mask <- rep(FALSE, length(chic[, "pm10tmean"]))
-    mask[!is.na(chic[, "pm10tmean"])] <- TRUE
-    chic <- cbind(chic, mask)
+    # library("NMMAPSlite")
+    # initDB()   # ** this creates a directory for a data archive
+    # chic <- readCity("chic", collapseAge=TRUE)
+    # chic <- chic[, c("date", "death", "time", "tmpd", "dptp", "dow", "pm10tmean")]
+    # mask <- rep(FALSE, length(chic[, "pm10tmean"]))
+    # mask[!is.na(chic[, "pm10tmean"])] <- TRUE
+    # chic <- cbind(chic, mask)
 
     # save(chic, file="chicagoNMMAPS.RData")
 }

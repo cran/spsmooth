@@ -1,7 +1,7 @@
 Package: spsmooth
 Type: Package
 Title: An Extension Package for 'mgcv'.
-Version: 1.0-0
+Version: 1.0-1
 Date: 2012-07-24
 Author: Wesley Burr, with contributions from Karim Rahim
 Maintainer: Wesley Burr <wburr@mast.queensu.ca>
@@ -10,6 +10,7 @@ Description: Produces Slepian smoother basis objects for use in
 Depends: mgcv (>= 1.7.18), R (>= 2.15)
 Suggests: NMMAPSlite (>= 0.3)
 License: GPL (>= 2)
-Packaged: 2012-07-25 14:54:25 UTC; wburr
+Packaged: 2013-03-22 13:46:47 UTC; wburr
+NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2012-07-25 15:10:59
+Date/Publication: 2013-03-22 15:51:21
