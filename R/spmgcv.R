@@ -65,12 +65,12 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
     nw <- nx * W
     dof <- floor(2 * nw) - 1
     if (nk >= dof+2 ) {
-      warning("k provided is too high! Manually decreased to 2NW-2.")
+      warning(paste0("k provided (", nk,") exceeds dimensionality (", floor(2*nw), ")! Manually decreased to 2NW-2."))
       nk <- dof
     }
     if(nk <= (floor(2 * nw) - 4)) {
-      warning("k provided is smaller than 2NW-3; this will not provide full
-          coverage on the index ends. Are you sure you want to do this?")
+      warning(paste0("k provided (", nk, ") is smaller than 2NW-3; this will not provide full
+          coverage on the index ends. Are you sure you want to do this?"))
     }
   } else { # default to 2NW - 1
     nw <- nx * W
@@ -78,13 +78,26 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
     nk <- dof 
   }
 
-  # augmented with a mean value term ... 
-  # (if not augmented, mgcv kills the first column and eliminates the
-  # highest-concentration Slepian, i.e. the one with the lowest variance) 
-  # See smoothCon() and its calls for more details.
-  X <- matrix(data = 0, nrow = nx, ncol = (nk+1))
-  X[, 1] <- rep(1, nx)
-  X[, 2:(nk+1)] <- .dpss(n = nx, k = nk, nw = nw)$v
+  # centering constraints:
+  # C > 0, numeric: drops column C, and orthonormalizes the rest as zero-mean
+  #  columns
+  # C = zero-row matrix: constraint-free parametrization, keeps the Slepians as-is
+  # C = one-row matrix: constraints on each column; set col to 0 to ignore
+  object$C <- matrix(data=NA, nrow=0, ncol=nk)
+
+  #  The Slepians are already orthonormal
+  #  ** so we want to prevent the qr decomposition
+  #  ** but being not-zero-mean is a problem
+  #
+  # discussion: pg 163-164 of Wood's GAM book
+  #
+  X <- .dpss(n = nx, k = nk, nw = nw)$v
+
+  # the odd tapers are already zero-mean; set the even tapers to be zero-mean
+  #  as well
+  X[, seq(1, nk, 2)] <- apply(X[, seq(1, nk, 2)], MARGIN=2, FUN=function(x) {
+                               x <- x - mean(x);  x
+                             })
 
   if(!is.null(mask)) {
     object$X <- X[mask==TRUE,] 
@@ -95,7 +108,6 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
   }
   object$rank <- nk  # penalty rank
 
-  # *** not sure this is correct ... is it actually used?
   object$null.space.dim <- nx - nk  # dim. of unpenalized space
 
   # store "sp" specific stuff ...
@@ -106,11 +118,8 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
   object$k <- nk
   object$N <- nx
   object$W <- W
-  object$v <- X[,2:(nk+1)]  # save only the tapers
-
-  # centering constraints; set to a positive number to remove the
-  # 'zero-meaning' of the basis vectors, which we do not want!
-  object$C <- 1
+  # object$v <- X[,2:(nk+1)]  # save only the tapers
+  object$v <- X
 
   class(object)<-"sp.smooth"  # Give object a class
   object
@@ -138,12 +147,24 @@ Predict.matrix.sp.smooth<-function(object,data)
   nk <- object$size[2]
   mask <- object[['xt']][['mask']]
   if(is.null(mask)) {
-    X <- cbind(rep(1,nx), object$v)
+    # X <- cbind(rep(1,nx), object$v)
+    X <- object$v
   } else {
     nxF <- length(which(mask==TRUE))
-    X <- cbind(rep(1,nxF), object$v[mask==TRUE, ])
+    # X <- cbind(rep(1,nxF), object$v[mask==TRUE, ])
+    X <- object$v[mask==TRUE, ]
   }
 
   X # return the prediction matrix
 }
+
+
+########################################################################
+#
+#   Plot
+#
+#   Requires work to make sure the predict is called properly ... 
+#   
+#
+########################################################################
 

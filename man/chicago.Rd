@@ -5,7 +5,7 @@
 %     Written by Wesley Burr.
 %
 %     The data included with this package is a subselection of the 
-%     NMMAPSdata / NMMAPSlite package database. It is included for 
+%     NMMAPSdata / (deprecated) NMMAPSlite package database. It is included for 
 %     demonstration purposes only.
 %
 %     This file is part of the spsmooth package for R.
@@ -36,8 +36,8 @@
 \description{
   Daily measurements of death, temperature, dewpoint, and PM10 pollution
   from Chicago, 1987 to 2000. Data taken from the NMMAPS database
-  using \code{\link[NMMAPSlite]{NMMAPS}}, a package written by Roger Peng
-  and available on CRAN: http://cran.r-project.org/web/packages/NMMAPSlite/index.html.
+  using \code{NMMAPSdata}, a package written by Roger Peng
+  and available at: http://www.ihapss.jhsph.edu/data/NMMAPS/R/.
 }
 \usage{chicagoNMMAPS}
 \format{ A data frame indicating the date, temperature, dewpoint, and PM10
@@ -45,7 +45,10 @@
     for estimating a sp basis, see \code{\link{spsmooth}}.
 }
 \examples{
-    # This provides the code that generated this set originally
+    # This provides the code that generated this set originally using 
+    # the now-deprecated 'NMMAPSlite' package, and is included here for historical
+    # reference.
+    # 
     # library("NMMAPSlite")
     # initDB()   # ** this creates a directory for a data archive
     # chic <- readCity("chic", collapseAge=TRUE)

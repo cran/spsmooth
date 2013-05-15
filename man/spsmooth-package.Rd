@@ -9,8 +9,8 @@ in generalized additive models. Requires \link{mgcv}.}
 \tabular{ll}{
 Package: \tab spsmooth\cr
 Type: \tab Package\cr
-Version: \tab 1.0-0\cr
-Date: \tab 2012-07-24\cr
+Version: \tab 1.1-0\cr
+Date: \tab 2013-05-15\cr
 License: \tab GPL (>= 2)\cr
 Depends: \tab mgcv (>= 1.7.18), R (>= 2.15)
 }
