@@ -9,10 +9,11 @@ in generalized additive models. Requires \link{mgcv}.}
 \tabular{ll}{
 Package: \tab spsmooth\cr
 Type: \tab Package\cr
-Version: \tab 1.1-0\cr
-Date: \tab 2013-05-15\cr
+Version: \tab 1.1-3\cr
+Date: \tab 2014-04-09\cr
 License: \tab GPL (>= 2)\cr
-Depends: \tab mgcv (>= 1.7.18), R (>= 2.15)
+Imports: \tab mgcv (>= 1.7.18)\cr
+Depends: \tab R (>= 2.15)
 }
 }
 \author{

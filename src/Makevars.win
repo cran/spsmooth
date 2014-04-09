@@ -22,4 +22,4 @@
 ##     239 Jeffery Hall, Queen's University, Kingston Ontario
 ##     Canada, K7L 3N6
 
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) 
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS)

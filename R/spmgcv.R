@@ -37,6 +37,16 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
   nk <- object$bs.dim 
   if (nk >= 0 & nk<=4) stop("Dimension too small for sp smoother")
 
+
+  ################################################################################ 
+  #
+  #  Problem: when mgcv() evaluates the family call, it tries to load the 'mask'
+  #  object. However ... it doesn't seem to be able to track it back to the subroutine
+  #  from which the gam() call was made. So you have to assign the mask to the .GlobalEnv
+  #  or everything craps out.
+  #
+  ################################################################################
+
   # number of input points; in mgcv, the passed data is post-na.action,
   # so we require a mask to determine the actual structure
   if(!is.null(object[['xt']][['mask']])) {
@@ -49,6 +59,9 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
 
     # sanity check 2: mask specified, does it match up with object$term?
     if(length(which(mask==TRUE)) != length(data[[object$term]])) {
+      cat(paste0("\n", str(data[[object$term]]), " (Data)", "\n"))
+      cat(paste0(str(mask), " (Mask)", "\n"))
+      cat(paste0(length(data[[object$term]]), " good data points vs ", length(which(mask==TRUE)), " true elements \n"))
       stop("Mask must correspond to missing data.")
     }
 
@@ -56,6 +69,7 @@ smooth.construct.sp.smooth.spec<-function(object,data,knots) {
     nxF <- length(x)
   } else {
     # assume the user knows what they are doing ... 
+    cat(paste0("Mask not found; assuming data is contiguous. \n"))
     mask <- NULL
     nx <- length(x)
   }
